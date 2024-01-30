@@ -8,7 +8,7 @@ provider "azurerm" {
 ## Resource group in which all resources will be deployed.
 ##-----------------------------------------------------------------------------
 module "resource_group" {
-  source      = "git::git@github.com:opsstation/terraform-azure-resource-group.git"
+  source      = "git::https://github.com/opsstation/terraform-azure-resource-group.git?ref=v1.0.0"
   name        = local.name
   environment = local.environment
   label_order = local.label_order
@@ -36,8 +36,4 @@ module "vnet" {
   address_spaces         = ["10.0.0.0/16"]
   enable_network_watcher = false # To be set true when network security group flow logs are to be tracked and network watcher with specific name is to be deployed.
 }
-
-
-
-
 
