@@ -1,12 +1,18 @@
-################
+## Managed By : OpsStation
+## Description : This Script is used to create Transfer Server, Transfer User And  labels.
+## Copyright @ OpsStation. All Right Reserved.
 
 locals {
   ddos_pp_id = var.enable_ddos_pp && var.existing_ddos_pp != null ? var.existing_ddos_pp : var.enable_ddos_pp && var.existing_ddos_pp == null ? azurerm_network_ddos_protection_plan.ddos[0].id : null
 }
 
+#Module      : labels
+#Description : This terraform module is designed to generate consistent label names and tags
+#              for resources. You can use terraform-labels to implement a strict naming
+#              convention.
 
 module "labels" {
-  source      = "git::git@github.com:opsstation/terraform-azure-labels.git"
+  source      = "git::https://github.com/opsstation/terraform-azure-labels.git?ref=v1.0.0"
   name        = var.name
   environment = var.environment
   managedby   = var.managedby
@@ -16,7 +22,7 @@ module "labels" {
 
 
 
-resource "azurerm_virtual_network" "test" {
+resource "azurerm_virtual_network" "vnet" {
   count                   = var.enable == true ? 1 : 0
   name                    = format("%s-vnet", module.labels.id)
   location                = var.location
