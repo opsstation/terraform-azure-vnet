@@ -14,12 +14,6 @@ output "vnet_location" {
 
 }
 
-output "vnet_address_space" {
-  value       = join("", azurerm_virtual_network.vnet[*].address_space)
-  description = "The address space of the newly created vNet"
-
-}
-
 output "vnet_guid" {
   value       = join("", azurerm_virtual_network.vnet[*].guid)
   description = "The GUID of the virtual network."
@@ -36,6 +30,12 @@ output "ddos_protection_plan_id" {
   value       = join("", azurerm_network_ddos_protection_plan.ddos[*].id)
   description = "The ID of the DDoS Protection Plan"
 }
+
+output "vnet_address_space" {
+  value       = join("", azurerm_virtual_network.vnet[0].address_space)
+  description = "Concatenated address space of the virtual network"
+}
+
 output "network_watcher_id" {
   value       = join("", azurerm_network_watcher.flow_log_nw[*].id)
   description = "The ID of the Network Watcher."
